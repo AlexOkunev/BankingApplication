@@ -46,7 +46,7 @@ public class BanksController {
 
     @ApiOperation("Редактирование банка")
     @PutMapping("/{id}")
-    public ResponseEntity<BankDto> editBank(@ApiParam("ID") @PathVariable Integer id, @ApiParam("Запрос") @Valid @RequestBody BankRequestDto request) throws URISyntaxException {
+    public ResponseEntity<BankDto> editBank(@ApiParam("ID") @PathVariable Integer id, @ApiParam("Запрос") @Valid @RequestBody BankRequestDto request) {
         Bank newBank = createEntity(request);
         Bank bank = banksService.updateBank(id, newBank);
         return ResponseEntity.ok(createDTO(bank));
@@ -54,7 +54,7 @@ public class BanksController {
 
     @ApiOperation("Удаление банка")
     @DeleteMapping("/{id}")
-    public ResponseEntity createBank(@ApiParam("ID") @PathVariable Integer id) throws URISyntaxException {
+    public ResponseEntity createBank(@ApiParam("ID") @PathVariable Integer id) {
         banksService.deleteBankById(id);
         return ResponseEntity.ok().build();
     }

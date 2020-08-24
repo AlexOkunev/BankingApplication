@@ -42,7 +42,7 @@ public class ClientsController {
 
     @ApiOperation("Редактирование клиента")
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDto> editClient(@ApiParam("ID") @PathVariable Integer id, @ApiParam("Запрос") @Valid @RequestBody ClientRequestDto request) throws URISyntaxException {
+    public ResponseEntity<ClientDto> editClient(@ApiParam("ID") @PathVariable Integer id, @ApiParam("Запрос") @Valid @RequestBody ClientRequestDto request) {
         Client newClient = createEntity(request);
         Client client = clientsService.updateClient(id, newClient);
         return ResponseEntity.ok(createDTO(client));
@@ -50,7 +50,7 @@ public class ClientsController {
 
     @ApiOperation("Удаление клиента")
     @DeleteMapping("/{id}")
-    public ResponseEntity createClient(@ApiParam("ID") @PathVariable Integer id) throws URISyntaxException {
+    public ResponseEntity createClient(@ApiParam("ID") @PathVariable Integer id) {
         clientsService.deleteClientById(id);
         return ResponseEntity.ok().build();
     }

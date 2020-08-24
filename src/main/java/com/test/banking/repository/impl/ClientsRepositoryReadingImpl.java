@@ -52,6 +52,8 @@ public class ClientsRepositoryReadingImpl implements ClientsRepositoryReading {
 
         cq.where(predicates.toArray(new Predicate[predicates.size()]));
 
+        cq.orderBy(cb.asc(clientRoot.get("id")));
+
         TypedQuery<Client> query = entityManager.createQuery(cq).setFirstResult(filter.getPagingFirstResult()).setMaxResults(filter.getPagingMaxResults());
 
         return query.getResultList();

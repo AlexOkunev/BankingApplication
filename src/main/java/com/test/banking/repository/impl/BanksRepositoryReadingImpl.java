@@ -45,6 +45,8 @@ public class BanksRepositoryReadingImpl implements BanksRepositoryReading {
 
         cq.where(predicates.toArray(new Predicate[predicates.size()]));
 
+        cq.orderBy(cb.asc(bankRoot.get("id")));
+
         TypedQuery<Bank> query = entityManager.createQuery(cq).setFirstResult(filter.getPagingFirstResult()).setMaxResults(filter.getPagingMaxResults());
 
         return query.getResultList();
