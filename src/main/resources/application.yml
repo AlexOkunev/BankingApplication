@@ -1,8 +1,5 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/banking
-    username: postgres
-    password: 123123
   mvc:
     jackson:
-      serialization.indent_output: true
+      serialization:
+        indent_output: true
