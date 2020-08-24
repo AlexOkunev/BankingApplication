@@ -17,9 +17,6 @@ import java.util.List;
 public class ClientsServiceImpl implements ClientsService {
     private ClientsRepository clientsRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     public ClientsServiceImpl(ClientsRepository clientsRepository) {
         this.clientsRepository = clientsRepository;
     }
