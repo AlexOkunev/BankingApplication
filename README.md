@@ -1,1 +1,8 @@
-# BankingApplication
+# Banking Application
+
+[Swagger](http://127.0.0.1:8080/swagger-ui.html)
+
+Схема БД - см . файл schema.sql
+
+Для работы с локальной Postgres нужно запускать приложение с профилем dev,
+с произвольной БД - prod, указав необходимые параметры в переменных окружения
