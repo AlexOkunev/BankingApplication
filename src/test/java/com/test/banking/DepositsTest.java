@@ -11,7 +11,7 @@ import com.test.banking.repository.DepositsRepository;
 import com.test.banking.service.BanksService;
 import com.test.banking.service.ClientsService;
 import com.test.banking.service.DepositsService;
-import org.junit.Before;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,7 +63,7 @@ public class DepositsTest {
         CLIENT.setType(ClientType.IP);
     }
 
-    @Before
+    @After
     public void initEach() {
         depositsRepository.deleteAll();
         banksRepository.deleteAll();

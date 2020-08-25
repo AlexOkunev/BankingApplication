@@ -1,9 +1,7 @@
 package com.test.banking.repository.impl;
 
 import com.test.banking.dto.request.DepositsFilter;
-import com.test.banking.entity.Bank;
-import com.test.banking.entity.Client;
-import com.test.banking.entity.Deposit;
+import com.test.banking.entity.*;
 import com.test.banking.repository.DepositsRepositoryReading;
 
 import javax.persistence.EntityManager;
@@ -33,56 +31,56 @@ public class DepositsRepositoryReadingImpl implements DepositsRepositoryReading 
         List<Predicate> predicates = new LinkedList<>();
 
         if (filter.getId() != null) {
-            predicates.add(cb.equal(depositRoot.get("id"), filter.getId()));
+            predicates.add(cb.equal(depositRoot.get(Deposit_.id), filter.getId()));
         }
 
         if (filter.getBankId() != null) {
-            predicates.add(cb.equal(joinDepositBank.get("id"), filter.getBankId()));
+            predicates.add(cb.equal(joinDepositBank.get(Bank_.id), filter.getBankId()));
         }
 
         if (isNotBlank(filter.getBankName())) {
-            predicates.add(cb.like(cb.upper(joinDepositBank.get("name")), "%" + filter.getBankName().toUpperCase() + "%"));
+            predicates.add(cb.like(cb.upper(joinDepositBank.get(Bank_.name)), "%" + filter.getBankName().toUpperCase() + "%"));
         }
 
         if (filter.getClientId() != null) {
-            predicates.add(cb.equal(joinDepositClient.get("id"), filter.getClientId()));
+            predicates.add(cb.equal(joinDepositClient.get(Client_.id), filter.getClientId()));
         }
 
         if (isNotBlank(filter.getClientFullName())) {
-            predicates.add(cb.like(cb.upper(joinDepositClient.get("fullName")), "%" + filter.getClientFullName().toUpperCase() + "%"));
+            predicates.add(cb.like(cb.upper(joinDepositClient.get(Client_.fullName)), "%" + filter.getClientFullName().toUpperCase() + "%"));
         }
 
         if (isNotBlank(filter.getClientShortName())) {
-            predicates.add(cb.like(cb.upper(joinDepositClient.get("shortName")), "%" + filter.getClientShortName().toUpperCase() + "%"));
+            predicates.add(cb.like(cb.upper(joinDepositClient.get(Client_.shortName)), "%" + filter.getClientShortName().toUpperCase() + "%"));
         }
 
         if(filter.getPercentMin() != null) {
-            predicates.add(cb.ge(depositRoot.get("percent"), filter.getPercentMin()));
+            predicates.add(cb.ge(depositRoot.get(Deposit_.percent), filter.getPercentMin()));
         }
 
         if(filter.getPercentMax() != null) {
-            predicates.add(cb.le(depositRoot.get("percent"), filter.getPercentMax()));
+            predicates.add(cb.le(depositRoot.get(Deposit_.percent), filter.getPercentMax()));
         }
 
         if(filter.getTermMin() != null) {
-            predicates.add(cb.ge(depositRoot.get("term"), filter.getTermMin()));
+            predicates.add(cb.ge(depositRoot.get(Deposit_.term), filter.getTermMin()));
         }
 
         if(filter.getTermMax() != null) {
-            predicates.add(cb.le(depositRoot.get("term"), filter.getTermMax()));
+            predicates.add(cb.le(depositRoot.get(Deposit_.term), filter.getTermMax()));
         }
 
         if(filter.getDateMin() != null) {
-            predicates.add(cb.greaterThanOrEqualTo(depositRoot.get("createDate"), filter.getDateMin()));
+            predicates.add(cb.greaterThanOrEqualTo(depositRoot.get(Deposit_.createDate), filter.getDateMin()));
         }
 
         if(filter.getDateMax() != null) {
-            predicates.add(cb.lessThanOrEqualTo(depositRoot.get("createDate"), filter.getDateMax()));
+            predicates.add(cb.lessThanOrEqualTo(depositRoot.get(Deposit_.createDate), filter.getDateMax()));
         }
 
         cq.where(predicates.toArray(new Predicate[predicates.size()]));
 
-        cq.orderBy(cb.asc(depositRoot.get("id")));
+        cq.orderBy(cb.asc(depositRoot.get(Deposit_.id)));
 
         TypedQuery<Deposit> query = entityManager.createQuery(cq)
                 .setFirstResult(filter.getPagingFirstResult())

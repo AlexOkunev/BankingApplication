@@ -2,6 +2,7 @@ package com.test.banking.repository.impl;
 
 import com.test.banking.dto.request.ClientsFilter;
 import com.test.banking.entity.Client;
+import com.test.banking.entity.Client_;
 import com.test.banking.repository.ClientsRepositoryReading;
 
 import javax.persistence.EntityManager;
@@ -31,28 +32,28 @@ public class ClientsRepositoryReadingImpl implements ClientsRepositoryReading {
         List<Predicate> predicates = new LinkedList<>();
 
         if (isNotBlank(filter.getAddress())) {
-            predicates.add(cb.like(cb.upper(clientRoot.get("address")), "%" + filter.getAddress().toUpperCase() + "%"));
+            predicates.add(cb.like(cb.upper(clientRoot.get(Client_.address)), "%" + filter.getAddress().toUpperCase() + "%"));
         }
 
         if (isNotBlank(filter.getShortName())) {
-            predicates.add(cb.like(cb.upper(clientRoot.get("shortName")), "%" + filter.getShortName().toUpperCase() + "%"));
+            predicates.add(cb.like(cb.upper(clientRoot.get(Client_.shortName)), "%" + filter.getShortName().toUpperCase() + "%"));
         }
 
         if (isNotBlank(filter.getFullName())) {
-            predicates.add(cb.like(cb.upper(clientRoot.get("fullName")), "%" + filter.getFullName().toUpperCase() + "%"));
+            predicates.add(cb.like(cb.upper(clientRoot.get(Client_.fullName)), "%" + filter.getFullName().toUpperCase() + "%"));
         }
 
         if (filter.getId() != null) {
-            predicates.add(cb.equal(clientRoot.get("id"), filter.getId()));
+            predicates.add(cb.equal(clientRoot.get(Client_.id), filter.getId()));
         }
 
         if (filter.getType() != null) {
-            predicates.add(cb.equal(clientRoot.get("type"), filter.getType()));
+            predicates.add(cb.equal(clientRoot.get(Client_.type), filter.getType()));
         }
 
         cq.where(predicates.toArray(new Predicate[predicates.size()]));
 
-        cq.orderBy(cb.asc(clientRoot.get("id")));
+        cq.orderBy(cb.asc(clientRoot.get(Client_.id)));
 
         TypedQuery<Client> query = entityManager.createQuery(cq).setFirstResult(filter.getPagingFirstResult()).setMaxResults(filter.getPagingMaxResults());
 

@@ -4,7 +4,7 @@ import com.test.banking.entity.Client;
 import com.test.banking.enumeration.ClientType;
 import com.test.banking.repository.ClientsRepository;
 import com.test.banking.service.ClientsService;
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class ClientsTest {
     @Autowired
     private ClientsRepository clientsRepository;
 
-    @Before
+    @After
     public void init() {
         clientsRepository.deleteAll();
     }

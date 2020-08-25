@@ -3,7 +3,7 @@ package com.test.banking;
 import com.test.banking.entity.Bank;
 import com.test.banking.repository.BanksRepository;
 import com.test.banking.service.BanksService;
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class BanksTest {
     @Autowired
     private BanksRepository banksRepository;
 
-    @Before
+    @After
     public void init() {
         banksRepository.deleteAll();
     }

@@ -2,7 +2,7 @@ package com.test.banking.repository.impl;
 
 import com.test.banking.dto.request.BanksFilter;
 import com.test.banking.entity.Bank;
-import com.test.banking.entity.Client;
+import com.test.banking.entity.Bank_;
 import com.test.banking.repository.BanksRepositoryReading;
 
 import javax.persistence.EntityManager;
@@ -32,20 +32,20 @@ public class BanksRepositoryReadingImpl implements BanksRepositoryReading {
         List<Predicate> predicates = new LinkedList<>();
 
         if (isNotBlank(filter.getName())) {
-            predicates.add(cb.like(cb.upper(bankRoot.get("name")), "%" + filter.getName().toUpperCase() + "%"));
+            predicates.add(cb.like(cb.upper(bankRoot.get(Bank_.name)), "%" + filter.getName().toUpperCase() + "%"));
         }
 
         if (isNotBlank(filter.getBik())) {
-            predicates.add(cb.like(cb.upper(bankRoot.get("bik")), "%" + filter.getBik().toUpperCase() + "%"));
+            predicates.add(cb.like(cb.upper(bankRoot.get(Bank_.bik)), "%" + filter.getBik().toUpperCase() + "%"));
         }
 
         if (filter.getId() != null) {
-            predicates.add(cb.equal(bankRoot.get("id"), filter.getId()));
+            predicates.add(cb.equal(bankRoot.get(Bank_.id), filter.getId()));
         }
 
         cq.where(predicates.toArray(new Predicate[predicates.size()]));
 
-        cq.orderBy(cb.asc(bankRoot.get("id")));
+        cq.orderBy(cb.asc(bankRoot.get(Bank_.id)));
 
         TypedQuery<Bank> query = entityManager.createQuery(cq).setFirstResult(filter.getPagingFirstResult()).setMaxResults(filter.getPagingMaxResults());
 
